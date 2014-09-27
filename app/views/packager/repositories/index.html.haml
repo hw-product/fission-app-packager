@@ -1,0 +1,20 @@
+%div.packager-repositories
+  %div.container.container-padding
+    %div.panel.panel-default
+      %div.panel-heading
+        Packager Enabled Repositories
+      %div.panel-body#packager-repositories
+        - @repositories.each do |account, repos|
+          %table.table.table-hover
+            %thead
+              %tr{:colspan => 2}
+                %th= account.name
+            %tbody
+              - repos.each do |repo|
+                %tr
+                  %td.col-md-9= repo.full_name
+                  %td
+                    %a{:href => packager_repository_path(repo)}
+                      %span.glyphicon.glyphicon-zoom-in
+                    %a{:href => edit_packager_repository_path(repo)}
+                      %span.glyphicon.glyphicon-cog

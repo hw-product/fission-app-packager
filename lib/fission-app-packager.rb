@@ -6,3 +6,5 @@ module FissionApp
     autoload :Utils, 'fission-app-packager/utils'
   end
 end
+
+require 'fission-app-jobs'
