@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
+  instance_exec(
+    :packager, 'v1/packager',
+    &FissionApp::Repositories.repositories_routes
+  )
+
   namespace :packager do
-    resources :accounts, :only => [] do
-      resources :repositories
-      resources :jobs
-    end
+    get 'dashboard', :to => 'dashboard#index', :as => :dashboard
   end
 end
