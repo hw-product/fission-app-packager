@@ -8,3 +8,4 @@ module FissionApp
 end
 
 require 'fission-app-jobs'
+require 'fission-app-repositories'
