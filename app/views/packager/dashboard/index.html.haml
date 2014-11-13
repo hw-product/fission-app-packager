@@ -1,0 +1,16 @@
+%div.packager-dashboard
+  %div.container.container-padding
+    %div.panel.panel-default
+      %div.panel-heading
+        Packager Dashboard
+      %div.panel-body#packager-dashboard
+        - @data.each do |acct, repos|
+          %table.table.table-hover
+            %thead
+              %tr
+                %td{:colspan => 2}= acct.name
+            - repos.each do |repo|
+              %tr
+                %td= repo.name
+                %td
+                  Something

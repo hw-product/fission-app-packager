@@ -29,20 +29,20 @@ module FissionApp
         {
           'Packager' => {
             'Dashboard' => Rails.application.routes.url_for(
-              :controller => :packager_dashboard,
-              :action => :index,
-              :only_path => true
-            ),
-            'Repositories' => Rails.application.routes.url_for(
-              :controller => :packager_repositories,
-              :action => :index,
-              :only_path => true
-            ),
-            'Jobs' => Rails.application.routes.url_for(
-              :controller => :packager_jobs,
+              :controller => 'packager/dashboard',
               :action => :index,
               :only_path => true
             )
+            # 'Repositories' => Rails.application.routes.url_for(
+            #   :controller => 'packager/repositories',
+            #   :action => :index,
+            #   :only_path => true
+            # ),
+            # 'Jobs' => Rails.application.routes.url_for(
+            #   :controller => 'packager/jobs',
+            #   :action => :index,
+            #   :only_path => true
+            # )
           }.with_indifferent_access
         }.with_indifferent_access
       end
