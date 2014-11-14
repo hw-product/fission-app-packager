@@ -6,5 +6,6 @@ Rails.application.routes.draw do
 
   namespace :packager do
     get 'dashboard', :to => 'dashboard#index', :as => :dashboard
+    resources :repository, :only => [:show]
   end
 end
