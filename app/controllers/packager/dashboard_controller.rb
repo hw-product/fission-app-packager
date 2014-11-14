@@ -15,9 +15,24 @@ class Packager::DashboardController < ApplicationController
         javascript_redirect_to packager_dashboard_path
       end
       format.html do
+        jobs_dataset = Job.dataset_with(
+          :collections => {
+            :complete => ['complete']
+          },
+          :scalars => {
+            :repository_name => ['data', 'github', 'repository', 'full_name']
+          }
+        ).where('? = ANY(complete)', @product.internal_name)
         @data = Hash[
           @accounts.map do |acct|
-            [acct, @product.repositories_dataset.where(:account_id => acct.id)]
+            [
+              acct,
+              Hash[
+                @product.repositories_dataset.where(:account_id => acct.id).all.map do |repo|
+                  [repo, jobs_dataset.where(:repository_name => repo.name)]
+                end
+              ]
+            ]
           end
         ]
       end

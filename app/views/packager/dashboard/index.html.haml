@@ -8,9 +8,12 @@
           %table.table.table-hover
             %thead
               %tr
-                %td{:colspan => 2}= acct.name
-            - repos.each do |repo|
+                %th= acct.name
+                %th
+                  %a{:href => packager_repositories_path(acct.id)}
+                    %span.glyphicon.glyphicon-cog
+
+            - repos.each do |repo, jobs|
               %tr
                 %td= repo.name
-                %td
-                  Something
+                %td= jobs.count
