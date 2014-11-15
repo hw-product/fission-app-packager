@@ -15,5 +15,5 @@
 
             - repos.each do |repo, jobs|
               %tr
-                %td= repo.name
+                %td= link_to(repo.name, packager_repository_path(repo.id))
                 %td= jobs.count
