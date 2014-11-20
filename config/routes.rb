@@ -4,6 +4,11 @@ Rails.application.routes.draw do
     &FissionApp::Repositories.repositories_routes
   )
 
+  instance_exec(
+    :packager,
+    &FissionApp::Jobs.jobs_routes
+  )
+
   namespace :packager do
     get 'dashboard', :to => 'dashboard#index', :as => :dashboard
     resources :repository, :only => [:show]
