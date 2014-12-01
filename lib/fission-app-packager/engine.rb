@@ -32,17 +32,8 @@ module FissionApp
               :controller => 'packager/dashboard',
               :action => :index,
               :only_path => true
-            )
-            # 'Repositories' => Rails.application.routes.url_for(
-            #   :controller => 'packager/repositories',
-            #   :action => :index,
-            #   :only_path => true
-            # ),
-            # 'Jobs' => Rails.application.routes.url_for(
-            #   :controller => 'packager/jobs',
-            #   :action => :index,
-            #   :only_path => true
-            # )
+            ),
+            'Jobs' => '/packager/jobs'
           }.with_indifferent_access
         }.with_indifferent_access
       end
