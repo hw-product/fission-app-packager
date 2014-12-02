@@ -1,14 +1,7 @@
 class Packager::DashboardController < ApplicationController
 
   def index
-    @product = Product.find_by_internal_name('packager')
-    @accounts = [
-      current_user.owned_accounts,
-      current_user.managed_accounts
-    ].flatten.uniq.find_all do |acct|
-      acct.product_features.map(&:product).include?(@product)
-    end
-
+    @accounts = [@account]
     respond_to do |format|
       format.js do
         flash[:error] = 'Unsupported request!'
