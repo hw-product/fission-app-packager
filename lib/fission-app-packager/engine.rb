@@ -38,6 +38,13 @@ module FissionApp
         }.with_indifferent_access
       end
 
+      # @return [Hash] dashboard information
+      def fission_dashboard
+        {
+          :packager_dashboard => 'Packager'
+        }
+      end
+
     end
   end
 end
