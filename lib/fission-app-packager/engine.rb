@@ -8,7 +8,7 @@ module FissionApp
           :vanity_dns => 'packager.co'
         )
         feature = Fission::Data::Models::ProductFeature.find_or_create(
-          :name => 'full_access',
+          :name => 'packager_full_access',
           :product_id => product.id
         )
         unless(feature.permissions_dataset.where(:name => 'packager_full_access').count > 0)
