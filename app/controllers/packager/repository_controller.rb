@@ -1,8 +1,7 @@
 class Packager::RepositoryController < ApplicationController
 
-  prepend_before_action do
-    @repo = Repository.find(params[:id])
-    params[:account_id] = @repo.account_id
+  before_action do
+    @repo = current_user.run_state.current_account.repositories_dataset.where(:id => params[:id]).first
   end
 
   def show
