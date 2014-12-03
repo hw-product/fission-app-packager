@@ -1,1 +1,15 @@
-OHAI!
+%h4 Job Status
+%div#jobs_summary_graph
+%h4 Popular Packages:
+%table.table
+  %thead
+    %tr
+      %th Package
+      %th Downloads
+  %tbody
+  - @popular.each do |name, count|
+    %tr{:colspan => 5}
+      %td= name.to_s.humanize
+      %td= count
+:javascript
+  #{graph_generate('jobs_summary_graph', :size => {:height => 100}, :line => {:label => {:show => false}}, :data => {:type => 'donut', :columns => @jobs_summary.map{|k,v|[k.to_s.humanize,v]}})}
