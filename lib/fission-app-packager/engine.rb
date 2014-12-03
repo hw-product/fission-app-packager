@@ -12,10 +12,14 @@ module FissionApp
           :product_id => product.id
         )
         unless(feature.permissions_dataset.where(:name => 'packager_full_access').count > 0)
-          feature.add_permission(
-            :name => 'packager_full_access',
-            :pattern => '/packager.*'
-          )
+          args = {:name => 'packager_full_access', :pattern => '/packager.*'}
+          permission = Fission::Data::Models::Permission.where(args).first
+          unless(permission)
+            permission = Fission::Data::Models::Permission.create(args)
+          end
+          unless(feature.permissions.include?(permission))
+            feature.add_permission(permission)
+          end
         end
       end
 
