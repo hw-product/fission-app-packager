@@ -45,7 +45,14 @@ module FissionApp
       # @return [Hash] dashboard information
       def fission_dashboard(*_)
         {
-          :packager_dashboard => 'Packager'
+          :packager_dashboard => {
+            :title => 'Packager',
+            :url => Rails.application.routes.url_for(
+              :controller => 'packager/dashboard',
+              :action => :index,
+              :only_path => true
+            )
+          }
         }
       end
 
