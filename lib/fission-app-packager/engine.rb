@@ -25,7 +25,7 @@ module FissionApp
       end
 
       # @return [Hash] navigation
-      def fission_navigation
+      def fission_navigation(*_)
         {
           'Packager' => {
             'Dashboard' => Rails.application.routes.url_for(
@@ -39,7 +39,7 @@ module FissionApp
       end
 
       # @return [Hash] dashboard information
-      def fission_dashboard
+      def fission_dashboard(*_)
         {
           :packager_dashboard => 'Packager'
         }
