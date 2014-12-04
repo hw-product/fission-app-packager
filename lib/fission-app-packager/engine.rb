@@ -3,14 +3,20 @@ module FissionApp
     class Engine < ::Rails::Engine
 
       config.to_prepare do |config|
-        product = Fission::Data::Models::Product.find_or_create(
-          :name => 'packager',
-          :vanity_dns => 'packager.co'
-        )
-        feature = Fission::Data::Models::ProductFeature.find_or_create(
-          :name => 'packager_full_access',
-          :product_id => product.id
-        )
+        product = Fission::Data::Models::Product.find_by_internal_name('packager')
+        unless(product)
+          product = Fission::Data::Models::Product.create(
+            :name => 'Packager',
+            :vanity_dns => 'packager.co'
+          )
+        end
+        feature = Fission::Data::Models::ProductFeature.find_by_name('packager_full_access')
+        unless(feature)
+          feature = Fission::Data::Models::ProductFeature.create(
+            :name => 'packager_full_access',
+            :product_id => product.id
+          )
+        end
         unless(feature.permissions_dataset.where(:name => 'packager_full_access').count > 0)
           args = {:name => 'packager_full_access', :pattern => '/packager.*'}
           permission = Fission::Data::Models::Permission.where(args).first
