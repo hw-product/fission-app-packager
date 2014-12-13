@@ -9,14 +9,20 @@ class PackagerDashboardCell < DashboardCell
       :complete => dataset.where(:status => 'complete').count
     }
 
-    repos = current_user.run_state.current_account.repositories_dataset.all.map{|repo|repo.name}
+    repos = current_user.run_state.current_account.repositories_dataset.
+      eager_graph(:products).where(:products__id => current_user.run_state.current_product).
+      all.map{|repo|repo.name}
     counts = repos.map do |repo|
-      github(:bot).releases(repo).map do |release|
-        release.assets.map do |asset|
-          {:name => "#{repo}/#{release.name}", :count => asset.download_count}
+      begin
+        github(:bot).releases(repo).map do |release|
+          release.assets.map do |asset|
+            {:name => "#{repo}/#{release.name}", :count => asset.download_count}
+          end
         end
+      rescue => e
+        nil
       end
-    end.flatten
+    end.flatten.compact
     @popular = counts.sort_by { |k| k[:count] }.last(5).reverse
     render
   end
