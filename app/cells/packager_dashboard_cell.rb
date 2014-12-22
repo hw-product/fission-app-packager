@@ -10,7 +10,7 @@ class PackagerDashboardCell < DashboardCell
     }
 
     repos = current_user.run_state.current_account.repositories_dataset.
-      eager_graph(:products).where(:products__id => current_user.run_state.current_product).
+      eager_graph(:products).where(:products__id => current_user.run_state.current_product.id).
       all.map{|repo|repo.name}
     counts = repos.map do |repo|
       begin
