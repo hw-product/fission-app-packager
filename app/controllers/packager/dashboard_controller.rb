@@ -9,13 +9,15 @@ class Packager::DashboardController < ApplicationController
       end
       format.html do
         jobs_dataset = Job.dataset_with(
-          :collections => {
-            :complete => ['complete']
-          },
           :scalars => {
+            :status => ['status'],
+            :job_name => ['data', 'router', 'action'],
             :repository_name => ['data', 'github', 'repository', 'full_name']
           }
-        ).where('? = ANY(complete)', @product.internal_name)
+        ).where(
+          :job_name => @product.internal_name,
+          :id => Job.current_dataset.select(:id)
+        )
         @data = Hash[
           @accounts.map do |acct|
             [
