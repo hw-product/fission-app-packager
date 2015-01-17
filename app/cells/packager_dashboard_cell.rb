@@ -2,6 +2,7 @@ class PackagerDashboardCell < DashboardCell
 
   def show(args)
     super
+    @packager = Product.find_by_internal_name('packager')
     dataset = Job.dataset_with(:scalars => {:status => ['status']})
     @jobs_summary = {
       :in_progress => dataset.where(:status => 'active').count,
@@ -10,7 +11,7 @@ class PackagerDashboardCell < DashboardCell
     }
 
     repos = current_user.run_state.current_account.repositories_dataset.
-      eager_graph(:products).where(:products__id => current_user.run_state.current_product.id).
+      eager_graph(:products).where(:products__id => @packager.id).
       all.map{|repo|repo.name}
     counts = repos.map do |repo|
       begin
