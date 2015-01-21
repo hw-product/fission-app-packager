@@ -38,12 +38,9 @@ module FissionApp
       def fission_navigation(*_)
         {
           'Packager' => {
-            'Dashboard' => Rails.application.routes.url_for(
-              :controller => 'packager/dashboard',
-              :action => :index,
-              :only_path => true
-            ),
-            'Jobs' => '/packager/jobs'
+            'Dashboard' => Rails.application.routes.url_helpers.packager_dashboard_path,
+            'Repositories' => Rails.application.routes.url_helpers.packager_repositories_path,
+            'Jobs' => Rails.application.routes.url_helpers.packager_jobs_path
           }.with_indifferent_access
         }.with_indifferent_access
       end
@@ -53,11 +50,7 @@ module FissionApp
         {
           :packager_dashboard => {
             :title => 'Packager',
-            :url => Rails.application.routes.url_for(
-              :controller => 'packager/dashboard',
-              :action => :index,
-              :only_path => true
-            )
+            :url => Rails.application.routes.url_helpers.packager_dashboard_path
           }
         }
       end
