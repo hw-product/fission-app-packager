@@ -8,7 +8,7 @@ module FissionApp
 
         # @return [Fission::Data::Models::Product]
         def packager_product
-          Product.find_by_name('packager')
+          Product.find_by_internal_name('packager')
         end
 
         # @return [Array<Fission::Data::Models::ProductFeature>] packager features
