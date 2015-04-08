@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   instance_exec(
-    :packager, 'v1/github/packager?tags=enabled',
+    :packager, 'v1/github/packager?push=enabled',
     &FissionApp::Repositories.repositories_routes
   )
 
