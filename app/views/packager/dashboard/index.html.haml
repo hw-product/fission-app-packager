@@ -1,23 +1,23 @@
 - id = 'packager'
 - content_for(:header_link) do
-  %a{:href => packager_repositories_path}
+  %a{ :href => packager_repositories_path }
     %span.glyphicon.glyphicon-cog
 
 :ruby
   content_for(:container) do
     render(
-      partial: 'layouts/panel',
-      locals: {
-        id: id,
-        heading: 'Packager Dashboard',
-        panel_content: @data.map{ |acct, repos|
+      :partial => 'layouts/panel',
+      :locals  => {
+        :id => id,
+        :heading => 'Packager Dashboard',
+        :panel_content => @data.map{ |acct, repos|
           header_data = [acct.name, content_for(:header_link)]
           data = repos.map { |repo, jobs| [link_to(repo.name, packager_repository_path(repo.id)), jobs.count] }
 
-          render(partial: 'layouts/table', locals: { header_data: header_data, data: data })
+          render(:partial => 'layouts/table', :locals => { :header_data => header_data, :data => data })
         }.join.html_safe
       }
     )
   end
 
-= render(partial: 'layouts/container', locals: { container_class: "#{id}-dashboard", container_id: id })
+= render(:partial => 'layouts/container', :locals => { :container_class => "#{id}-dashboard", :container_id => id })
