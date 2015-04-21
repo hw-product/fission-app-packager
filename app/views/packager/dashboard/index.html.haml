@@ -8,7 +8,7 @@
     render(
       :partial => 'layouts/panel',
       :locals  => {
-        :id => id,
+        :id => "#{id}-panel",
         :heading => 'Packager Dashboard',
         :panel_content => @data.map{ |acct, repos|
           header_data = [acct.name, content_for(:header_link)]
